@@ -1,6 +1,7 @@
-import { test, expect } from "@playwright/test"
+import { test } from "@playwright/test"
 import axios from "axios"
 
+// Get Webhook URL from Discord channel
 const discordWebhookURL = process.env.DISCORD_WEBHOOK_URL
 
 test("anya", async ({ page }) => {
@@ -32,8 +33,6 @@ test("anya", async ({ page }) => {
   )
 
   await unavailable.waitFor({ timeout: 1000 })
-
-  console.log({ visiable: await unavailable.isVisible() })
 
   if (await unavailable.isVisible()) {
     await axios(discordWebhookURL, {

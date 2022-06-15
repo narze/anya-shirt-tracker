@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "npx playwright test --project=chromium -j 1 tests/anya.spec.ts",
+    "cron": "npx node-cron-cli -p '0 * * * * *' -e 'npm run start'"
+  },
   "keywords": [],
   "author": "Manassarn Manoonchai",
   "license": "ISC",
@@ -11,6 +14,7 @@
     "@playwright/test": "^1.22.2"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "node-cron-cli": "^1.0.1"
   }
 }
