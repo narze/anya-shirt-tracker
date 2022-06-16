@@ -42,7 +42,7 @@ test("anya", async ({ page }) => {
       },
       data: JSON.stringify({
         username: "Anya Shirt Tracker",
-        content: `[${new Date().toLocaleString()}] หน้าเว็บยังเข้าไม่ได้เลย NOT ELEGANTO ${url}`,
+        content: `[${new Date().toLocaleString('en-US', { timeZone: "Asia/Bangkok" })}] หน้าเว็บยังเข้าไม่ได้เลย NOT ELEGANTO ${url}`,
       }),
     })
 
