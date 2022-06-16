@@ -4,16 +4,23 @@
 name: Node.js CI
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+concurrency:
+  # group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 70
 
     steps:
     - uses: actions/checkout@v3
