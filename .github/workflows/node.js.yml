@@ -22,7 +22,8 @@ jobs:
         node-version: 16.x
         cache: 'npm'
     - run: npm ci
-    - run: npx playwright install-deps chromium
+    - run: npx playwright install
+    # - run: npx playwright install-deps chromium
     - run: npm run cron
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
