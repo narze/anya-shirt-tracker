@@ -5,9 +5,10 @@ import axios from "axios"
 const discordWebhookURL = process.env.DISCORD_WEBHOOK_URL!
 
 test("anya", async ({ page }) => {
+  page.setViewportSize({ width: 1200, height: 900 })
+
   const url =
     "https://www.uniqlo.com/th/en/products/E451868-000?colorCode=COL41"
-
   // Go to https://www.uniqlo.com/th/en/spl/ut/spy-x-family
   await page.goto("https://www.uniqlo.com/th/en/spl/ut/spy-x-family")
 
