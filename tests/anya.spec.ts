@@ -71,15 +71,30 @@ test("anya", async ({ page }) => {
 
   await page.screenshot({ path: "screenshot.png" })
 
+  let content
+
   // https://birdie0.github.io/discord-webhooks-guide/discord_webhook.html
-  const content = [
-    `[${new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" })}]`,
-    "ไซส์เสื้อที่มี:",
-    ...sizesAvailable.map(({ size, available }) => {
-      return `${size} ${available ? "มี!!! <@105861263254380544>" : "ไม่มี"}`
-    }),
-    `ไปตำ -> ${url}`,
-  ].join("\n")
+  if (sizesAvailable.some(({ available }) => available)) {
+    content = [
+      `[${new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Bangkok",
+      })}] มีเสื้อ!!! <@105861263254380544>`,
+      "ไซส์เสื้อที่มี:",
+      sizesAvailable
+        .filter(({ available }) => available)
+        .map(({ size }) => {
+          return `${size}`
+        })
+        .join(", "),
+      `ไปตำ -> ${url}`,
+    ].join("\n")
+  } else {
+    content = `[${new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Bangkok",
+    })}] No shirt available, not eleganto...`
+  }
+
+  console.log("Posting: ", content)
 
   axios(discordWebhookURL, {
     method: "POST",
