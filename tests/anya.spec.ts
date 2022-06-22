@@ -10,25 +10,25 @@ test("anya", async ({ page }) => {
   const url =
     "https://www.uniqlo.com/th/en/products/E451868-000?colorCode=COL41"
   // Go to https://www.uniqlo.com/th/en/spl/ut/spy-x-family
-  await page.goto("https://www.uniqlo.com/th/en/spl/ut/spy-x-family")
+  await page.goto(url)
 
-  // Click text=see this item >> nth=3
-  await Promise.all([
-    page.waitForNavigation({
-      url,
-      timeout: 5000,
-    }),
-    page
-      .locator(
-        ':text("see this item"):below(.title:has-text("MEN Spy x Family UT (Short Sleeve Graphic T-Shirt)"))'
-      )
-      .nth(3)
-      .click(),
-  ])
+  // await page.goto("https://www.uniqlo.com/th/en/spl/ut/spy-x-family")
+
+  // // Click text=see this item >> nth=3
+  // await Promise.all([
+  //   page.waitForNavigation({
+  //     url,
+  //     timeout: 5000,
+  //   }),
+  //   page
+  //     .locator(
+  //       ':text("see this item"):below(.title:has-text("MEN Spy x Family UT (Short Sleeve Graphic T-Shirt)"))'
+  //     )
+  //     .nth(3)
+  //     .click(),
+  // ])
 
   // if page includes "This product is temporarily unavailable. Please try again later."
-
-  // Click text=This product is temporarily unavailable. Please try again later.
   const unavailable = await page.locator(
     "text=This product is temporarily unavailable. Please try again later."
   )
