@@ -2,7 +2,7 @@ import { test } from "@playwright/test"
 import axios from "axios"
 
 // Get Webhook URL from Discord channel
-const discordWebhookURL = process.env.DISCORD_WEBHOOK_URL
+const discordWebhookURL = process.env.DISCORD_WEBHOOK_URL!
 
 test("anya", async ({ page }) => {
   const url =
@@ -32,7 +32,11 @@ test("anya", async ({ page }) => {
     "text=This product is temporarily unavailable. Please try again later."
   )
 
-  await unavailable.waitFor({ timeout: 1000 })
+  try {
+    await unavailable.waitFor({ timeout: 1000 })
+  } catch (e) {
+    console.log("Page not error! ELEGANTO!")
+  }
 
   if (await unavailable.isVisible()) {
     await axios(discordWebhookURL, {
@@ -42,7 +46,9 @@ test("anya", async ({ page }) => {
       },
       data: JSON.stringify({
         username: "Anya Shirt Tracker",
-        content: `[${new Date().toLocaleString('en-US', { timeZone: "Asia/Bangkok" })}] หน้าเว็บยังเข้าไม่ได้เลย NOT ELEGANTO ${url}`,
+        content: `[${new Date().toLocaleString("en-US", {
+          timeZone: "Asia/Bangkok",
+        })}] หน้าเว็บยังเข้าไม่ได้เลย NOT ELEGANTO ${url}`,
       }),
     })
 
@@ -69,7 +75,7 @@ test("anya", async ({ page }) => {
     `[${new Date().toLocaleString()}]`,
     "ไซส์เสื้อที่มี:",
     ...sizesAvailable.map(({ size, available }) => {
-      return `${size} ${available ? "มี" : "ไม่มี"}`
+      return `${size} ${available ? "มี!!! <@105861263254380544>" : "ไม่มี"}`
     }),
     `ไปตำ -> ${url}`,
   ].join("\n")
