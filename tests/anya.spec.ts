@@ -73,7 +73,7 @@ test("anya", async ({ page }) => {
 
   // https://birdie0.github.io/discord-webhooks-guide/discord_webhook.html
   const content = [
-    `[${new Date().toLocaleString()}]`,
+    `[${new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" })}]`,
     "ไซส์เสื้อที่มี:",
     ...sizesAvailable.map(({ size, available }) => {
       return `${size} ${available ? "มี!!! <@105861263254380544>" : "ไม่มี"}`
