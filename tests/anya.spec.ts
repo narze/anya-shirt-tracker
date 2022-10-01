@@ -8,7 +8,8 @@ test("anya", async ({ page }) => {
   page.setViewportSize({ width: 1200, height: 900 })
 
   const url =
-    "https://www.uniqlo.com/th/en/products/E451868-000?colorCode=COL41"
+    "https://www.uniqlo.com/th/en/products/E451868-000?colorCode=COL41" // Anya
+  // "https://www.uniqlo.com/th/th/products/E457496-000?colorCode=COL76&sizeCode=SMA002" // Other product (For debugging)
   // Go to https://www.uniqlo.com/th/en/spl/ut/spy-x-family
   await page.goto(url)
 
@@ -56,8 +57,6 @@ test("anya", async ({ page }) => {
     return
   }
 
-  // await page.screenshot({ path: "screenshot.png" })
-
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"]
 
   const sizesAvailable = await Promise.all(
@@ -65,7 +64,24 @@ test("anya", async ({ page }) => {
       const sizeEl = await page.locator(
         `[data-test="${size}"] input[type="radio"]`
       )
-      return { size, available: !(await sizeEl.isDisabled()) }
+
+      // await page.pause()
+
+      await page
+        .locator(`.size-picker-wrapper label:has-text("${size}")`)
+        .first()
+        .click()
+
+      const isQuantityDisabled = await page
+        .locator('[data-test="quantity-dropdown"]')
+        .getAttribute("disabled")
+
+      // console.log({ isQuantityDisabled })
+
+      return {
+        size,
+        available: !(await sizeEl.isDisabled()) && !isQuantityDisabled,
+      }
     })
   )
 

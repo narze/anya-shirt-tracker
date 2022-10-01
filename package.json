@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx playwright test --project=chromium -j 1 tests/anya.spec.ts",
+    "debug": "npx playwright test --project=chromium --debug tests/anya.spec.ts",
     "cron": "npx node-cron-cli -p '0 * * * * *' -e 'npm run start'"
   },
   "keywords": [],
